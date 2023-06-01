@@ -5,19 +5,19 @@
 
     <!-- 修改的对话框 -->
     <el-dialog
-            title="修改订单数据"
+            title="修改缴费数据"
             :visible.sync="editDialogVisible"
             width="50%"
             @close="addressDialogClose">
       <el-form :model="editForm" :rules="editFormRules" ref="editFormRef" label-width="100px">
-        <el-form-item label="订单价格" prop="order_price">
+        <el-form-item label="缴费金额" prop="order_price">
           <el-input v-model="editForm.order_price" type="number" min="0"></el-input>
         </el-form-item>
         <el-form-item label="是否付款">
           <el-radio v-model="editForm.pay_status" label="1">已付款</el-radio>
           <el-radio v-model="editForm.pay_status" label="0">未付款</el-radio>
         </el-form-item>
-        <el-form-item label="是否发货">
+        <el-form-item label="参加考试">
           <el-radio v-model="editForm.is_send" label="是">是</el-radio>
           <el-radio v-model="editForm.is_send" label="否">否</el-radio>
         </el-form-item>
@@ -64,7 +64,7 @@
         getOrderDetailRequest(id).then(res => {
           let result = res.data;
           if (result.meta.status !== 200) {
-            return this.alertMessage('获取订单详情失败', 'error');
+            return this.alertMessage('获取缴费详情失败', 'error');
           }
 
           this.editForm = result.data;
@@ -72,7 +72,7 @@
         });
       },
 
-      // 修改订单数据
+      // 修改缴费数据
       editOrder() {
         let editForm = this.editForm;
         editOrderRequest(editForm.order_id, {

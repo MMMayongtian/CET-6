@@ -1,10 +1,10 @@
-// 商品管理中的网络请求
+// 试题管理中的网络请求
 
 import {request} from "./request";
 
-// 商品分类---------------------------
+// 试题分类---------------------------
 
-// 获取商品分类的列表
+// 获取试题分类的列表
 export function getCategoriesListRequest(params) {
   return request({
     url: '/categories',
@@ -100,8 +100,8 @@ export function removeParamByIdRequest(data) {
   })
 }
 
-// 商品管理--------------------------------------
-// 获取商品列表数据
+// 试题管理--------------------------------------
+// 获取试题列表数据
 export function getGoodsListRequest(params) {
   return request({
     url: '/goods',
@@ -109,7 +109,7 @@ export function getGoodsListRequest(params) {
   })
 }
 
-// 根据 ID 删除商品
+// 根据 ID 删除试题
 export function removeGoodsByIdRequest(id) {
   return request({
     url: `/goods/${id}`,
@@ -117,7 +117,7 @@ export function removeGoodsByIdRequest(id) {
   })
 }
 
-// 添加商品
+// 添加试题
 export function addGoodsRequest(data) {
   return request({
     url: `/goods`,

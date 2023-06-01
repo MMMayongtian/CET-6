@@ -8,7 +8,7 @@ var authorization = require(path.join(process.cwd(),"/modules/authorization"));
 // 通过验证模块获取分类管理
 var orderServ = authorization.getService("OrderService");
 
-// 订单列表
+// 缴费列表
 router.get("/",
 	// 参数验证
 	function(req,res,next) {
@@ -56,7 +56,7 @@ router.get("/",
 	}
 );
 
-// 添加订单
+// 添加缴费
 router.post("/",
 	// 参数验证
 	function(req,res,next) {
@@ -67,13 +67,13 @@ router.post("/",
 		var params = req.body;
 		orderServ.createOrder(params,function(err,newOrder){
 			if(err) return res.sendResult(null,400,err);
-			return res.sendResult(newOrder,201,"创建订单成功");
+			return res.sendResult(newOrder,201,"创建缴费成功");
 		})(req,res,next);
 		
 	}
 );
 
-// 更新订单发送状态
+// 更新缴费发送状态
 router.put("/:id",
 	// 参数验证
 	function(req,res,next) {
@@ -84,7 +84,7 @@ router.put("/:id",
 		var params = req.body;
 		orderServ.updateOrder(req.params.id,params,function(err,newOrder){
 			if(err) return res.sendResult(null,400,err);
-			return res.sendResult(newOrder,201,"更新订单成功");
+			return res.sendResult(newOrder,201,"更新缴费成功");
 		})(req,res,next);
 	}
 );

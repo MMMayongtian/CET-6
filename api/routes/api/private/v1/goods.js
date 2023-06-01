@@ -8,7 +8,7 @@ var authorization = require(path.join(process.cwd(),"/modules/authorization"));
 // 通过验证模块获取分类管理
 var goodServ = authorization.getService("GoodService");
 
-// 商品列表
+// 试题列表
 router.get("/",
 	// 验证参数
 	function(req,res,next) {
@@ -37,7 +37,7 @@ router.get("/",
 	}
 );
 
-// 添加商品
+// 添加试题
 router.post("/",
 	// 参数验证
 	function(req,res,next) {
@@ -48,19 +48,19 @@ router.post("/",
 		var params = req.body;
 		goodServ.createGood(params,function(err,newGood){
 			if(err) return res.sendResult(null,400,err);
-			res.sendResult(newGood,201,"创建商品成功");
+			res.sendResult(newGood,201,"创建试题成功");
 		})(req,res,next);
 	}
 );
 
-// 更新商品
+// 更新试题
 router.put("/:id",
 	// 参数验证
 	function(req,res,next) {
 		if(!req.params.id) {
-			return res.sendResult(null,400,"商品ID不能为空");
+			return res.sendResult(null,400,"试题ID不能为空");
 		}
-		if(isNaN(parseInt(req.params.id))) return res.sendResult(null,400,"商品ID必须是数字");
+		if(isNaN(parseInt(req.params.id))) return res.sendResult(null,400,"试题ID必须是数字");
 		next();
 	},
 	// 业务逻辑
@@ -68,19 +68,19 @@ router.put("/:id",
 		var params = req.body;
 		goodServ.updateGood(req.params.id,params,function(err,newGood){
 			if(err) return res.sendResult(null,400,err);
-			res.sendResult(newGood,200,"创建商品成功");
+			res.sendResult(newGood,200,"创建试题成功");
 		})(req,res,next);
 	}
 );
 
-// 获取商品详情
+// 获取试题详情
 router.get("/:id",
 	// 参数验证
 	function(req,res,next) {
 		if(!req.params.id) {
-			return res.sendResult(null,400,"商品ID不能为空");
+			return res.sendResult(null,400,"试题ID不能为空");
 		}
-		if(isNaN(parseInt(req.params.id))) return res.sendResult(null,400,"商品ID必须是数字");
+		if(isNaN(parseInt(req.params.id))) return res.sendResult(null,400,"试题ID必须是数字");
 		next();
 	},
 	// 业务逻辑
@@ -94,14 +94,14 @@ router.get("/:id",
 
 
 
-// 删除商品
+// 删除试题
 router.delete("/:id",
 	// 参数验证
 	function(req,res,next) {
 		if(!req.params.id) {
-			return res.sendResult(null,400,"商品ID不能为空");
+			return res.sendResult(null,400,"试题ID不能为空");
 		}
-		if(isNaN(parseInt(req.params.id))) return res.sendResult(null,400,"商品ID必须是数字");
+		if(isNaN(parseInt(req.params.id))) return res.sendResult(null,400,"试题ID必须是数字");
 		next();
 	},
 	// 业务逻辑
@@ -115,14 +115,14 @@ router.delete("/:id",
 	}
 );
 
-// 更新商品的图片
+// 更新试题的图片
 router.put("/:id/pics",
 	// 参数验证
 	function(req,res,next) {
 		if(!req.params.id) {
-			return res.sendResult(null,400,"商品ID不能为空");
+			return res.sendResult(null,400,"试题ID不能为空");
 		}
-		if(isNaN(parseInt(req.params.id))) return res.sendResult(null,400,"商品ID必须是数字");
+		if(isNaN(parseInt(req.params.id))) return res.sendResult(null,400,"试题ID必须是数字");
 		next();
 	},
 	// 业务逻辑
@@ -139,14 +139,14 @@ router.put("/:id/pics",
 	}
 );
 
-// 更新商品的属性
+// 更新试题的属性
 router.put("/:id/attributes",
 	// 参数验证
 	function(req,res,next) {
 		if(!req.params.id) {
-			return res.sendResult(null,400,"商品ID不能为空");
+			return res.sendResult(null,400,"试题ID不能为空");
 		}
-		if(isNaN(parseInt(req.params.id))) return res.sendResult(null,400,"商品ID必须是数字");
+		if(isNaN(parseInt(req.params.id))) return res.sendResult(null,400,"试题ID必须是数字");
 		next();
 	},
 	// 业务逻辑
@@ -163,14 +163,14 @@ router.put("/:id/attributes",
 	}
 );
 
-// 更新商品状态
+// 更新试题状态
 router.put("/:id/state/:state",
 	// 参数验证
 	function(req,res,next) {
 		if(!req.params.id) {
-			return res.sendResult(null,400,"商品ID不能为空");
+			return res.sendResult(null,400,"试题ID不能为空");
 		}
-		if(isNaN(parseInt(req.params.id))) return res.sendResult(null,400,"商品ID必须是数字");
+		if(isNaN(parseInt(req.params.id))) return res.sendResult(null,400,"试题ID必须是数字");
 		if(!req.params.state) {
 			return res.sendResult(null,400,"状态值不能为空");
 		}

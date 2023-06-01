@@ -20,8 +20,8 @@ function doCheckOrderParams(params) {
 
 		if(!params.order_id) info.order_number = "itcast-" + uniqid();
 
-		if(!params.order_price) return reject("订单价格不能为空");
-		if(isNaN(parseFloat(params.order_price))) return reject("订单价格必须为数字");
+		if(!params.order_price) return reject("缴费金额不能为空");
+		if(isNaN(parseFloat(params.order_price))) return reject("缴费金额必须为数字");
 		info.order_price = params.order_price;
 
 		if(params.order_pay){
@@ -88,7 +88,7 @@ function doCheckOrderParams(params) {
 function doCreateOrder(info) {
 	return new Promise(function(resolve,reject) {
 		dao.create("OrderModel",_.clone(info),function(err,newOrder){
-			if(err) return reject("创建订单失败");
+			if(err) return reject("创建缴费失败");
 			info.order = newOrder;
 			resolve(info);
 		});
@@ -98,7 +98,7 @@ function doCreateOrder(info) {
 function doCreateOrderGood(orderGood) {
 	return new Promise(function(resolve,reject) {
 		dao.create("OrderGoodModel",orderGood,function(err,newOrderGood){
-			if(err) return reject("创建订单商品失败");
+			if(err) return reject("创建缴费试题失败");
 			resolve(newOrderGood);
 		});
 	});
@@ -108,7 +108,7 @@ function doAddOrderGoods(info) {
 
 	return new Promise(function(resolve,reject) {
 		
-		if(!info.order) return reject("订单对象未创建");
+		if(!info.order) return reject("缴费对象未创建");
 
 		var orderGoods = info.goods;
 
@@ -138,12 +138,12 @@ function doAddOrderGoods(info) {
 
 function doGetAllOrderGoods(info) {
 	return new Promise(function(resolve,reject) {
-		if(!info.order) return reject("订单对象未创建");
+		if(!info.order) return reject("缴费对象未创建");
 		
 		dao.list("OrderGoodModel",{"columns":{"order_id":info.order.order_id}},function(err,orderGoods){
 			
 			
-			if(err) return reject("获取订单商品列表失败");
+			if(err) return reject("获取缴费试题列表失败");
 
 			info.order.goods = orderGoods;
 			resolve(info);
@@ -155,8 +155,8 @@ function doGetOrder(info) {
 	return new Promise(function(resolve,reject) {
 		dao.show("OrderModel",info.order_id,function(err,newOrder){
 
-			if(err) return reject("获取订单详情失败");
-			if(!newOrder) return reject("订单ID不能存在");
+			if(err) return reject("获取缴费详情失败");
+			if(!newOrder) return reject("缴费ID不能存在");
 			info.order = newOrder;
 			resolve(info);
 		})

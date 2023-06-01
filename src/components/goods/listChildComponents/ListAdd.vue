@@ -2,21 +2,23 @@
   <div>
     <!-- 顶部面包屑导航 -->
     <breadcrumb-nav>
-      <template v-slot:firstMenu>商品管理</template>
-      <template v-slot:secondMenu>添加商品</template>
+      <!-- <template v-slot:firstMenu>试题管理</template> -->
+      <!-- <template v-slot:secondMenu>添加试题</template> -->
+      <template v-slot:firstMenu>试题管理</template> 
+      <template v-slot:secondMenu>添加试题</template> 
     </breadcrumb-nav>
 
     <!-- 卡片视图 -->
     <el-card>
-      <el-alert title="添加商品信息" type="info" show-icon center :closable="false"></el-alert>
+      <el-alert title="添加试题信息" type="info" show-icon center :closable="false"></el-alert>
 
       <!-- 步骤条 -->
       <el-steps :space="200" :active="activeIndex * 1" finish-status="success" align-center>
         <el-step title="基本信息"></el-step>
-        <el-step title="商品参数"></el-step>
-        <el-step title="商品属性"></el-step>
-        <el-step title="商品图片"></el-step>
-        <el-step title="商品内容"></el-step>
+        <el-step title="试题参数"></el-step>
+        <el-step title="试题类别"></el-step>
+        <el-step title="试题图片"></el-step>
+        <el-step title="试题内容"></el-step>
         <el-step title="完成"></el-step>
       </el-steps>
 
@@ -24,19 +26,19 @@
         <!-- tab栏区域 -->
         <el-tabs v-model="activeIndex" tab-position="left" :before-leave="beforeTabLeave" @tab-click="tabClicked">
           <el-tab-pane label="基本信息" name="0">
-            <el-form-item label="商品名称" prop="goods_name">
+            <el-form-item label="试题名称" prop="goods_name">
               <el-input v-model="addForm.goods_name"></el-input>
             </el-form-item>
-            <el-form-item label="商品价格" prop="goods_price">
+            <el-form-item label="试题难度" prop="goods_price">
               <el-input v-model="addForm.goods_price" type="number" min="0"></el-input>
             </el-form-item>
-            <el-form-item label="商品数量" prop="goods_number">
+            <el-form-item label="试题数量" prop="goods_number">
               <el-input v-model="addForm.goods_number" type="number" min="0"></el-input>
             </el-form-item>
-            <el-form-item label="商品重量" prop="goods_weight">
+            <el-form-item label="试卷总分" prop="goods_weight">
               <el-input v-model="addForm.goods_weight" type="number" min="0"></el-input>
             </el-form-item>
-            <el-form-item label="商品分类" prop="goods_cat">
+            <el-form-item label="试题分类" prop="goods_cat">
               <el-cascader
                       v-model="addForm.goods_cat"
                       :options="categoryList"
@@ -44,19 +46,19 @@
                       @change="handleCascaderChange"></el-cascader>
             </el-form-item>
           </el-tab-pane>
-          <el-tab-pane label="商品参数" name="1">
+          <el-tab-pane label="试题参数" name="1">
             <el-form-item v-for="item in manyTableData" :key="item.attr_id" :label="item.attr_name">
               <el-checkbox-group v-model="item.attr_vals">
                 <el-checkbox border v-for="(tag,index) in item.attr_vals" :label="tag"></el-checkbox>
               </el-checkbox-group>
             </el-form-item>
           </el-tab-pane>
-          <el-tab-pane label="商品属性" name="2">
+          <el-tab-pane label="试题类别" name="2">
             <el-form-item v-for="item in onlyTableData" :key="item.attr_id" :label="item.attr_name">
               <el-input :value="item.attr_vals"></el-input>
             </el-form-item>
           </el-tab-pane>
-          <el-tab-pane label="商品图片" name="3">
+          <el-tab-pane label="试题图片" name="3">
             <!-- action表示图片上传的地址 -->
             <el-upload
                     :action="uploadUrl"
@@ -68,11 +70,11 @@
               <el-button size="small" type="primary">点击上传</el-button>
             </el-upload>
           </el-tab-pane>
-          <el-tab-pane label="商品内容" name="4">
+          <el-tab-pane label="试题内容" name="4">
             <!-- 富文本编辑器组件 -->
             <quill-editor v-model="addForm.goods_introduce" class="editor"></quill-editor>
-            <!-- 添加商品的按钮 -->
-            <el-button type="primary" class="addBtn" @click="addGoods">添加商品</el-button>
+            <!-- 添加试题的按钮 -->
+            <el-button type="primary" class="addBtn" @click="addGoods">添加试题</el-button>
           </el-tab-pane>
         </el-tabs>
       </el-form>
@@ -109,24 +111,24 @@
           goods_weight: 0,
           goods_cat: [],
           pics: [],
-          goods_introduce: '',// 商品的详情
+          goods_introduce: '',// 试题的详情
           attrs: []
         },
         addFormRules: {
           goods_name: [
-            {required: true, message: '请输入商品名称', trigger: 'blur'}
+            {required: true, message: '请输入试题名称', trigger: 'blur'}
           ],
           goods_price: [
-            {required: true, message: '请输入商品价格', trigger: 'blur'}
+            {required: true, message: '请输入试题难度', trigger: 'blur'}
           ],
           goods_number: [
-            {required: true, message: '请输入商品数量', trigger: 'blur'}
+            {required: true, message: '请输入试题数量', trigger: 'blur'}
           ],
           goods_weight: [
-            {required: true, message: '请输入商品重量', trigger: 'blur'}
+            {required: true, message: '请输入试卷总分', trigger: 'blur'}
           ],
           goods_cat: [
-            {required: true, message: '请选择商品分类', trigger: 'blur'}
+            {required: true, message: '请选择试题分类', trigger: 'blur'}
           ]
         },
         categoryList: [],
@@ -138,8 +140,8 @@
         },
         manyTableData: [],
         onlyTableData: [],
-        // uploadUrl: "http://127.0.0.1:8888/api/private/v1/upload",
-        uploadUrl: "https://www.liulongbin.top:8888/api/private/v1",
+        uploadUrl: "http://127.0.0.1:8888/api/private/v1/upload",
+        // uploadUrl: "https://www.liulongbin.top:8888/api/private/v1",
         imgUploadHeaders: { // 上传图片控件的header
           Authorization: sessionStorage.getItem('token')
         },
@@ -163,7 +165,7 @@
       getCategoriesList() {
         getCategoriesListRequest({}).then(res => {
           let result = res.data;
-          console.log('商品分类', result);
+          console.log('试题分类', result);
           if (result.meta.status !== 200) {
             return this.alertMessage('获取分类列表失败', 'error');
           }
@@ -182,37 +184,37 @@
       // tab标签页发生切换
       beforeTabLeave(activeName, oldActiveName) {
         if (oldActiveName === '0' && this.addForm.goods_cat.length !== 3) {
-          this.alertMessage('请先选择商品分类', 'error');
+          this.alertMessage('请先选择试题分类', 'error');
           return false;
         }
       },
 
       // 点击切换左侧标签页
       tabClicked() {
-        // 访问的是商品参数面板
+        // 访问的是试题参数面板
         if (this.activeIndex === '1') {
           getCategoryParamsRequest(this.cateId, 'many').then(res => {
             let result = res.data;
             if (result.meta.status !== 200) {
-              return this.alertMessage('获取商品参数失败', 'error');
+              return this.alertMessage('获取试题参数失败', 'error');
             }
 
             this.manyTableData = result.data;
             result.data.forEach(item => {
               item.attr_vals = item.attr_vals.split(' ');
             });
-            console.log('商品参数：', result.data);
+            console.log('试题参数：', result.data);
           })
         } else if (this.activeIndex === '2') {
-          // 访问的是 商品属性 面板
+          // 访问的是 试题类别 面板
           getCategoryParamsRequest(this.cateId, 'only').then(res => {
             let result = res.data;
             if (result.meta.status !== 200) {
-              return this.alertMessage('获取商品参数失败', 'error');
+              return this.alertMessage('获取试题参数失败', 'error');
             }
 
             this.onlyTableData = result.data;
-            console.log('商品属性：', result.data);
+            console.log('试题类别：', result.data);
           })
         }
       },
@@ -244,7 +246,7 @@
         this.addForm.pics.push(picInfo);
       },
 
-      // 点击按钮添加商品
+      // 点击按钮添加试题
       addGoods() {
         this.$refs.addFormRef.validate(valid => {
           if (!valid) {
@@ -274,7 +276,7 @@
 
           addGoodsRequest(addDeepForm).then(res => {
             let result = res.data;
-            console.log('添加商品', result);
+            console.log('添加试题', result);
             if (result.meta.status !== 201) {
               return this.alertMessage('添加失败', 'error');
             }

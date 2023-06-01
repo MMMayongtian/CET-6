@@ -54,21 +54,21 @@ function generateGoodInfo(params) {
 	return new Promise(function(resolve,reject){
 		var info = {};
 		if(params.goods_id) info["goods_id"] = params.goods_id;
-		if(!params.goods_name) return reject("商品名称不能为空");
+		if(!params.goods_name) return reject("试题名称不能为空");
 		info["goods_name"] = params.goods_name;
 
-		if(!params.goods_price) return reject("商品价格不能为空");
+		if(!params.goods_price) return reject("试题难度不能为空");
 		var price = parseFloat(params.goods_price);
-		if(isNaN(price) || price < 0) return reject("商品价格不正确")
+		if(isNaN(price) || price < 0) return reject("试题难度不正确")
 		info["goods_price"] = price;
 
 		
-		if(!params.goods_number) return reject("商品数量不能为空");
+		if(!params.goods_number) return reject("试题数量不能为空");
 		var num = parseInt(params.goods_number);
-		if(isNaN(num) || num < 0) return reject("商品数量不正确");
+		if(isNaN(num) || num < 0) return reject("试题数量不正确");
 		info["goods_number"] = num;
 
-		if(!params.goods_cat) return reject("商品没有设置所属分类");
+		if(!params.goods_cat) return reject("试题没有设置所属分类");
 		var cats = params.goods_cat.split(',');
 		if(cats.length > 0) {
 			info["cat_one_id"] = cats[0];
@@ -84,7 +84,7 @@ function generateGoodInfo(params) {
 
 		if(params.goods_weight) {
 			weight = parseFloat(params.goods_weight);
-			if(isNaN(weight) || weight < 0) return reject("商品重量格式不正确");
+			if(isNaN(weight) || weight < 0) return reject("试卷总分格式不正确");
 			info["goods_weight"] = weight;
 		} else {
 			info["goods_weight"] = 0;
@@ -142,7 +142,7 @@ function generateGoodInfo(params) {
 }
 
 /**
- * 检查商品名称是否重复
+ * 检查试题名称是否重复
  * 
  * @param  {[type]} info [description]
  * @return {[type]}      [description]
@@ -154,13 +154,13 @@ function checkGoodName(info) {
 			if(err) return reject(err);
 			if(!good) return resolve(info);
 			if(good.goods_id == info.goods_id) return resolve(info);
-			return reject("商品名称已存在");
+			return reject("试题名称已存在");
 		});
 	});
 }
 
 /**
- * 创建商品基本信息
+ * 创建试题基本信息
  * 
  * @param  {[type]} info [description]
  * @return {[type]}      [description]
@@ -170,7 +170,7 @@ function createGoodInfo(info) {
 	return new Promise(function(resolve,reject){
 		dao.create("GoodModel",_.clone(info),function(err,newGood) {
 
-			if(err) return reject("创建商品基本信息失败");
+			if(err) return reject("创建试题基本信息失败");
 			newGood.goods_cat = newGood.getGoodsCat();
 			info.good = newGood;
 			return resolve(info);
@@ -180,9 +180,9 @@ function createGoodInfo(info) {
 
 function updateGoodInfo(info) {
 	return new Promise(function(resolve,reject){
-		if(!info.goods_id) return reject("商品ID不存在");
+		if(!info.goods_id) return reject("试题ID不存在");
 		dao.update("GoodModel",info.goods_id,_.clone(info),function(err,newGood) {
-			if(err) return reject("更新商品基本信息失败");
+			if(err) return reject("更新试题基本信息失败");
 			info.good = newGood;
 			return resolve(info);
 		});
@@ -191,17 +191,17 @@ function updateGoodInfo(info) {
 }
 
 /**
- * 获取商品对象
+ * 获取试题对象
  * 
  * @param  {[type]} info 查询内容
  * @return {[type]}      [description]
  */
 function getGoodInfo(info) {
 	return new Promise(function(resolve,reject){
-		if(!info || !info.goods_id || isNaN(info.goods_id)) return reject("商品ID格式不正确");
+		if(!info || !info.goods_id || isNaN(info.goods_id)) return reject("试题ID格式不正确");
 		
 		dao.show("GoodModel",info.goods_id,function(err,good){
-			if(err) return reject("获取商品基本信息失败");
+			if(err) return reject("获取试题基本信息失败");
 			good.goods_cat = good.getGoodsCat();
 			info["good"] = good;
 			return resolve(info);
@@ -210,14 +210,14 @@ function getGoodInfo(info) {
 }
 
 /**
- * 删除商品图片
+ * 删除试题图片
  * 
  * @param  {[type]} pic 图片对象
  * @return {[type]}     [description]
  */
 function removeGoodPic(pic) {
 	return new Promise(function(resolve,reject) {
-		if(!pic || !pic.remove) return reject("删除商品图片记录失败");
+		if(!pic || !pic.remove) return reject("删除试题图片记录失败");
 		pic.remove(function(err){
 			if(err) return reject("删除失败");
 			resolve();
@@ -247,19 +247,19 @@ function createGoodPic(pic){
 
 
 /**
- * 更新商品图片
+ * 更新试题图片
  * 
  * @param  {[type]} info    参数
- * @param  {[type]} newGood 商品基本信息
+ * @param  {[type]} newGood 试题基本信息
  */
 function doUpdateGoodPics(info) {
 	return new Promise(function(resolve,reject){
 		var good = info.good;
-		if(!good.goods_id) return reject("更新商品图片失败");
+		if(!good.goods_id) return reject("更新试题图片失败");
 
 		if(!info.pics) return resolve(info);
 		dao.list("GoodPicModel",{"columns":{"goods_id":good.goods_id}},function(err,oldpics) {
-			if(err) return reject("获取商品图片列表失败");
+			if(err) return reject("获取试题图片列表失败");
 
 			
 
@@ -296,8 +296,8 @@ function doUpdateGoodPics(info) {
 				}
 			});
 
-			// 开始处理商品图片数据逻辑
-			// 1. 删除商品图片数据集合
+			// 开始处理试题图片数据逻辑
+			// 1. 删除试题图片数据集合
 			_(delOldpics).forEach(function(pic){
 				// 1.1 删除图片物理路径
 				batchFns.push(removeGoodPicFile(path.join(process.cwd(),pic.pics_big)));
@@ -351,26 +351,26 @@ function doUpdateGoodPics(info) {
 function createGoodAttribute(goodAttribute) {
 	return new Promise(function(resolve,reject) {
 		dao.create("GoodAttributeModel",_.omit(goodAttribute,"delete_time"),function(err,newAttr){
-			if(err) return reject("创建商品参数失败");
+			if(err) return reject("创建试题参数失败");
 			resolve(newAttr);
 		});
 	});
 }
 
 /**
- * 更新商品属性
+ * 更新试题类别
  * 
  * @param  {[type]} info 参数
- * @param  {[type]} good 商品对象
+ * @param  {[type]} good 试题对象
  */
 function doUpdateGoodAttributes(info) {
 	return new Promise(function(resolve,reject) {
 		var good = info.good;
-		if(!good.goods_id) return reject("获取商品图片必须先获取商品信息");
+		if(!good.goods_id) return reject("获取试题图片必须先获取试题信息");
 		if(!info.attrs) return resolve(info);
 		// var GoodAttributeModel = dao.getModel("GoodAttributeModel");
 		goodAttributeDao.clearGoodAttributes(good.goods_id,function(err){
-			if(err) return reject("清理原始的商品参数失败");
+			if(err) return reject("清理原始的试题参数失败");
 			
 			var newAttrs = info.attrs ? info.attrs : [];
 
@@ -415,11 +415,11 @@ function doUpdateGoodAttributes(info) {
 function doGetAllPics(info) {
 	return new Promise(function(resolve,reject){
 		var good = info.good;
-		if(!good.goods_id) return reject("获取商品图片必须先获取商品信息");
+		if(!good.goods_id) return reject("获取试题图片必须先获取试题信息");
 		// 3. 组装最新的数据挂载在“info”中“good”对象下
 		dao.list("GoodPicModel",{"columns":{"goods_id":good.goods_id}},function(err,goodPics){
 
-			if(err) return reject("获取所有商品图片列表失败");
+			if(err) return reject("获取所有试题图片列表失败");
 			_(goodPics).forEach(function(pic){
 				if(pic.pics_big.indexOf("http") == 0) {
 					pic.pics_big_url = pic.pics_big;
@@ -458,10 +458,10 @@ function doGetAllPics(info) {
 function doGetAllAttrs(info) {
 	return new Promise(function(resolve,reject){
 		var good = info.good;
-		if(!good.goods_id) return reject("获取商品图片必须先获取商品信息");
+		if(!good.goods_id) return reject("获取试题图片必须先获取试题信息");
 		goodAttributeDao.list(good.goods_id,function(err,goodAttrs){
 
-			if(err) return reject("获取所有商品参数列表失败");
+			if(err) return reject("获取所有试题参数列表失败");
 			info.good.attrs = goodAttrs;
 			resolve(info);
 		});
@@ -470,9 +470,9 @@ function doGetAllAttrs(info) {
 
 
 /**
- * 创建商品
+ * 创建试题
  * 
- * @param  {[type]}   params 商品参数
+ * @param  {[type]}   params 试题参数
  * @param  {Function} cb     回调函数
  */
 module.exports.createGood = function(params,cb) {
@@ -480,13 +480,13 @@ module.exports.createGood = function(params,cb) {
 
 	// 验证参数 & 生成数据
 	generateGoodInfo(params)
-	// 检查商品名称
+	// 检查试题名称
 	.then(checkGoodName)
-	// 创建商品
+	// 创建试题
 	.then(createGoodInfo)
-	// 更新商品图片
+	// 更新试题图片
 	.then(doUpdateGoodPics)
-	// 更新商品参数
+	// 更新试题参数
 	.then(doUpdateGoodAttributes)
 	.then(doGetAllPics)
 	.then(doGetAllAttrs)
@@ -500,9 +500,9 @@ module.exports.createGood = function(params,cb) {
 }
 
 /**
- * 删除商品
+ * 删除试题
  * 
- * @param  {[type]}   id 商品ID
+ * @param  {[type]}   id 试题ID
  * @param  {Function} cb 回调函数
  */
 module.exports.deleteGood = function(id,cb) {
@@ -524,7 +524,7 @@ module.exports.deleteGood = function(id,cb) {
 }
 
 /**
- * 获取商品列表
+ * 获取试题列表
  * 
  * @param  {[type]}   params     查询条件
  * @param  {Function} cb         回调函数
@@ -573,9 +573,9 @@ module.exports.getAllGoods = function(params,cb) {
 }
 
 /**
- * 更新商品
+ * 更新试题
  * 
- * @param  {[type]}   id     商品ID
+ * @param  {[type]}   id     试题ID
  * @param  {[type]}   params 参数
  * @param  {Function} cb     回调函数
  */
@@ -584,13 +584,13 @@ module.exports.updateGood = function(id,params,cb) {
 	params.goods_id = id;
 	// 验证参数 & 生成数据
 	generateGoodInfo(params)
-	// 检查商品名称
+	// 检查试题名称
 	.then(checkGoodName)
-	// 创建商品
+	// 创建试题
 	.then(updateGoodInfo)
-	// 更新商品图片
+	// 更新试题图片
 	.then(doUpdateGoodPics)
-	// 更新商品参数
+	// 更新试题参数
 	.then(doUpdateGoodAttributes)
 	.then(doGetAllPics)
 	.then(doGetAllAttrs)
@@ -604,15 +604,15 @@ module.exports.updateGood = function(id,params,cb) {
 }
 
 /**
- * 更新商品图片
+ * 更新试题图片
  * 
- * @param  {[type]}   goods_id 商品ID
- * @param  {[type]}   pics     商品图片
+ * @param  {[type]}   goods_id 试题ID
+ * @param  {[type]}   pics     试题图片
  * @param  {Function} cb       回调函数
  */
 module.exports.updateGoodPics = function(goods_id,pics,cb) {
-	if(!goods_id) return cb("商品ID不能为空");
-	if(isNaN(goods_id)) return cb("商品ID必须为数字");
+	if(!goods_id) return cb("试题ID不能为空");
+	if(isNaN(goods_id)) return cb("试题ID必须为数字");
 
 	getGoodInfo({"goods_id":goods_id,"pics":pics})
 	.then(doUpdateGoodPics)
@@ -654,9 +654,9 @@ module.exports.updateGoodsState = function(goods_id,state,cb) {
 }
 
 /**
- * 通过商品ID获取商品数据
+ * 通过试题ID获取试题数据
  * 
- * @param  {[type]}   id 商品ID
+ * @param  {[type]}   id 试题ID
  * @param  {Function} cb 回调函数
  */
 module.exports.getGoodById = function(id,cb) {

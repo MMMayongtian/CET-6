@@ -2,8 +2,8 @@
   <div>
     <!-- 顶部面包屑导航 -->
     <breadcrumb-nav>
-      <template v-slot:firstMenu>订单管理</template>
-      <template v-slot:secondMenu>订单列表</template>
+      <template v-slot:firstMenu>缴费管理</template>
+      <template v-slot:secondMenu>缴费列表</template>
     </breadcrumb-nav>
 
     <el-card>
@@ -72,7 +72,7 @@
         getOrderListRequest(this.queryInfo).then(res => {
           let result = res.data;
           if (result.meta.status !== 200) {
-            return this.alertMessage('获取订单列表失败', 'error');
+            return this.alertMessage('获取缴费列表失败', 'error');
           }
           this.orderList = result.data.goods;
           this.total = result.data.total;
@@ -89,7 +89,7 @@
         this.getOrderList();
       },
 
-      // 监听子组件触发的获取订单列表的事件
+      // 监听子组件触发的获取缴费列表的事件
       updateOrderList(){
         this.getOrderList();
       }

@@ -46,13 +46,13 @@
       this.getCategoriesList();
     },
     methods:{
-      // 获取商品分类
+      // 获取试题分类
       getCategoriesList() {
         getCategoriesListRequest(this.queryInfo).then(res => {
           let result = res.data;
 
           if (result.meta.status !== 200) {
-            return this.alertMessage('商品列表获取失败', 'error');
+            return this.alertMessage('试题列表获取失败', 'error');
           }
 
           this.categoryList = result.data.result;

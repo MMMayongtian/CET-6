@@ -2,8 +2,10 @@
   <div>
     <!-- 顶部面包屑导航 -->
     <breadcrumb-nav>
-      <template v-slot:firstMenu>商品管理</template>
-      <template v-slot:secondMenu>商品列表</template>
+      <!-- <template v-slot:firstMenu>试题管理</template> -->
+      <!-- <template v-slot:secondMenu>试题列表</template> -->
+      <template v-slot:firstMenu>试题管理</template>
+      <template v-slot:secondMenu>试题列表</template>
     </breadcrumb-nav>
 
     <!-- 卡片视图 -->
@@ -15,16 +17,16 @@
           </el-input>
         </el-col>
         <el-col :span="4">
-          <el-button type="primary" @click="goAddPage">添加商品</el-button>
+          <el-button type="primary" @click="goAddPage">添加试题</el-button>
         </el-col>
       </el-row>
 
       <!-- table表格区域 -->
       <el-table :data="goodsList" border stripe>
         <el-table-column type="index"></el-table-column>
-        <el-table-column label="商品名称" prop="goods_name"></el-table-column>
-        <el-table-column label="商品价格（元）" prop="goods_price" width="90px"></el-table-column>
-        <el-table-column label="商品重量" prop="goods_weight" width="90px"></el-table-column>
+        <el-table-column label="试题名称" prop="goods_name"></el-table-column>
+        <el-table-column label="试题难度" prop="goods_price" width="90px"></el-table-column>
+        <el-table-column label="试卷总分" prop="goods_weight" width="90px"></el-table-column>
         <el-table-column label="创建时间" prop="add_time" width="170px">
           <template slot-scope="scope">
             {{scope.row.add_time | dateFormat}}
@@ -83,7 +85,7 @@
         getGoodsListRequest(this.queryInfo).then(res => {
           let result = res.data;
           if (result.meta.status !== 200) {
-            return this.alertMessage('获取商品数据失败', 'error');
+            return this.alertMessage('获取试题数据失败', 'error');
           }
           this.goodsList = result.data.goods;
           this.total = result.data.total;
@@ -102,7 +104,7 @@
         this.getGoodsList();
       },
 
-      // 删除商品
+      // 删除试题
       removeGoods(id) {
         this.$confirm('此操作将永久删除, 是否继续?', '提示', {
           confirmButtonText: '确定',
@@ -126,7 +128,7 @@
         });
       },
 
-      // 跳转到添加商品的界面
+      // 跳转到添加试题的界面
       goAddPage() {
         this.$router.push('/add');
       }

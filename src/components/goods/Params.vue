@@ -2,7 +2,7 @@
   <div>
     <!-- 顶部面包屑导航 -->
     <breadcrumb-nav>
-      <template v-slot:firstMenu>商品管理</template>
+      <template v-slot:firstMenu>试题管理</template>
       <template v-slot:secondMenu>分类参数</template>
     </breadcrumb-nav>
 
@@ -11,11 +11,11 @@
       <!-- 头部警告区域 -->
       <el-alert title="注意：只允许为第三级分类设置相关参数" type="warning" :closable="false" show-icon></el-alert>
 
-      <!-- 选择商品分类区域 -->
+      <!-- 选择试题分类区域 -->
       <el-row class="selectCategory">
         <el-col>
-          <span>选择商品分类：</span>
-          <!-- 选择商品分类的级联选择框 -->
+          <span>选择试题分类：</span>
+          <!-- 选择试题分类的级联选择框 -->
           <el-cascader
                   v-model="selectedKeys"
                   :options="categoryList"
@@ -109,7 +109,7 @@
         getCategoriesListRequest(this.queryInfo).then(res => {
           let result = res.data;
           if (result.meta.status !== 200) {
-            return this.alertMessage('商品列表获取失败', 'error');
+            return this.alertMessage('试题列表获取失败', 'error');
           }
 
           this.categoryList = result.data;
