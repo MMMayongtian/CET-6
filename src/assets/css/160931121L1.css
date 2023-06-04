@@ -1,0 +1,13 @@
+#Body{/*background:url(/res/Home/structure/15070280.png) no-repeat 80% 13%*/}
+
+#Content1{/*padding-top:18px;width:1000px;margin:0 auto;height: 327px;
+box-sizing: border-box;background: url(/res/Home/structure/15070280.png) no-repeat 102% 43%;*/}
+body{background:/*url(/res/Home/structure/object_con_bg.jpg) repeat-x left 340px*/ #fff;}
+#rightBg{/*background:url(/res/Home/structure/chif.jpg) no-repeat right bottom;*/height:320px}
+/*#rightBg{background:url(/res/Home/structure/hgfh-1.jpg) no-repeat right top;height:320px}*/
+.nav ul li:nth-child(1) a{    color: #0DA3E2;
+    font-weight: bold}
+
+
+/*内容3*/
+#Content3{width:1150px;margin:50px auto 0;padding-bottom:50px;overflow:hidden}

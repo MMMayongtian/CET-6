@@ -3,12 +3,14 @@ import VueRouter from 'vue-router'
 
 let Login = () =>
     import ('../components/Login');
+let Exam = () =>
+    import ('../components/Front/Exam')
 let UserLogin = () =>
     import ('../components/UserLogin')
 let Home = () =>
     import ('../components/Home');
 let Front = () =>
-    import ('../components/Front');
+    import ('../components/Front/Front');
 let Welcome = () =>
     import ('../components/Welcome');
 let Users = () =>
@@ -39,6 +41,10 @@ const routes = [{
     {
         path: '/login',
         component: Login
+    },
+    {
+        path: '/exam',
+        component: Exam
     },
     {
         path: '/userlogin',

@@ -1,8 +1,9 @@
 <template>
   <div class="login_container">
-    <div class="buttonme">
+    <!-- <div class="buttonme">
       <a class="btn-draw" href="#"><span @click.prevent="show = !show">Click Me</span></a>
-    </div>
+    </div> -->
+
     <!--el-button class="start" @click="show = !show">从此开始</el-button-->
     <!--div v-show="!show" class="pic"-->
     <!--transition name="el-fade-in-linear"-->
@@ -10,8 +11,8 @@
     <!--/transition-->
     <!--/div-->
     <!--/el-form-item-->
-    <transition name="el-zoom-in-top">
-      <div v-show="show">
+    <div name="el-zoom-in-top">
+      <div>
         <el-form ref="loginFormRef" :model="loginForm" :rules="loginFormRules" class="sign-up">
           <h1 class="sign-up-title">LOGIN</h1>
           <!-- 用户名区域 -->
@@ -20,18 +21,12 @@
           <!-- 密码区域 -->
           <input type="password" v-model="loginForm.password" class="sign-up-input" placeholder="Choose a password">
           <!-- 按钮区域 -->
-          <el-button type="primary" @click="login" class="sign-up-button">LOGIN!</el-button>
+          <el-button type="primary" @click="login" class="sign-up-button">LOG   IN!</el-button>
+          <el-button type="primary" @click="addDialogVisible = true" class="register-button">REGISTER!</el-button>
         </el-form>
 
-        <div>
-          <!-- 搜索与添加按钮 -->
-          <el-row :gutter="20">
-            <el-col :span="4">
-              <el-button type="primary" @click="addDialogVisible = true">添加用户</el-button>
-            </el-col>
-          </el-row>
           <!-- 添加用户的对话框 -->
-          <el-dialog title="添加用户" :visible.sync="addDialogVisible" width="50%" @close="addDialogClose">
+          <el-dialog title="注册新用户" :visible.sync="addDialogVisible" width="50%" @close="addDialogClose" >
             <el-form :model="addUserForm" :rules="addUserFormRules" ref="addUserFormRef" label-width="70px">
               <el-form-item label="用户名" prop="username">
                 <el-input v-model="addUserForm.username"></el-input>
@@ -52,10 +47,9 @@
             </span>
           </el-dialog>
 
-        </div>
 
       </div>
-    </transition>
+    </div>
   </div>
 </template>
 
@@ -88,7 +82,6 @@ export default {
         username: "Admin",
         password: "123456"
       },
-      show: false,
       loginFormRules: {
         username: [
           { required: true, message: '请输入用户名', trigger: 'blur' }, // trigger表示什么时候触发，blur表示失去焦点的时候触发
@@ -151,6 +144,7 @@ export default {
             type: 'success'
           });
           sessionStorage.setItem('token', result.data.token);
+          localStorage.setItem("uid", result.data.id);
           localStorage.setItem("name", this.loginForm.username);
           this.$router.push('/front');
         }).catch(err => {
@@ -170,7 +164,6 @@ export default {
           let result = res.data;
           if (result.meta.status != 200) return;
           sessionStorage.setItem('token',result.data.token);
-          localStorage.setItem("name", "register");
         });
         addUserRequest(this.addUserForm).then(res => {
           let result = res.data;
@@ -178,6 +171,8 @@ export default {
             return this.alertMessage('添加用户失败', 'error');
           }
           this.alertMessage('添加用户成功', 'success');
+          var storage = window.localStorage;
+          storage.clear();
           // 隐藏弹窗
           this.addDialogVisible = false;
         });
@@ -191,16 +186,16 @@ export default {
 <style lang="css" scoped>
 body {
   font: 13px/20px 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  color: #404040;
-  background: #596778;
+  /* color: #404040;
+  background: #596778; */
 }
 
 .sign-up {
-  position: relative;
-
-  margin: 0px auto;
+  position: absolute;
+  top: 20%;
+  left: 66%;
   width: 280px;
-  height: 280px;
+  height: 340px;
   padding: 33px 25px 29px;
   background: #ffffff;
   border-bottom: 1px solid #c4c4c4;
@@ -291,6 +286,7 @@ input {
   vertical-align: top;
   width: 100%;
   height: 54px;
+  margin-left: 0%;
   padding: 0;
   font-size: 22px;
   color: white;
@@ -306,6 +302,34 @@ input {
 }
 
 .sign-up-button:active {
+  top: 1px;
+  outline: none;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}
+
+.register-button {
+  position: relative;
+  vertical-align: top;
+  margin-top: 8%;
+  margin-left: 0%;
+  width: 100%;
+  height: 54px;
+  padding: 0;
+  font-size: 22px;
+  color: white;
+  text-align: center;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
+  background: #f0776c;
+  border: 0;
+  border-bottom: 2px solid #d76b60;
+  border-radius: 5px;
+  cursor: pointer;
+  -webkit-box-shadow: inset 0 -2px #d76b60;
+  box-shadow: inset 0 -2px #d76b60;
+}
+
+.register-button:active {
   top: 1px;
   outline: none;
   -webkit-box-shadow: none;
@@ -341,7 +365,10 @@ input {
 
 <style lang="less" scoped>
 .login_container {
+  background-image: url("~assets/images/6663.jpg");
+  
   background-color: #424c50;
+  width: 100%;
   height: 100%
 }
 
