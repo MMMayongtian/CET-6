@@ -3,8 +3,12 @@ import VueRouter from 'vue-router'
 
 let Login = () =>
     import ('../components/Login');
+let Display = () =>
+    import ('../components/Front/Display');
 let Exam = () =>
     import ('../components/Front/Exam')
+let Sign = () =>
+    import ('../components/Front/Sign')
 let UserLogin = () =>
     import ('../components/UserLogin')
 let Home = () =>
@@ -41,6 +45,14 @@ const routes = [{
     {
         path: '/login',
         component: Login
+    },
+    {
+        path: '/sign',
+        component: Sign
+    },
+    {
+        path: '/display',
+        component: Display
     },
     {
         path: '/exam',

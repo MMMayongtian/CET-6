@@ -1,14 +1,43 @@
-background: url(@assets/img/bg.pngsrc\assets\images\6663.jpg) 
 <template>
     <div class="FrontPage">
-        <h1 style="text-align: center;margin-top: 100px;color: white;">CET-6 考试系统</h1>
+        <h1 style="text-align: center;margin-top: 100px;color: black;">CET-6 考试系统</h1>
+        <h2 style="text-align: center;color: black;">hello, {{ name }}!</h2>
+        <div class="up-box">
+            <div class="box-card">
+                <div class="flip">
+                    <div class="front">
+                        <h1 class="text-shadow">考试简介</h1>
 
-        <el-card id="left-up" class="box-card">
-            <div class="flip">
-                <div class="front"
-                    style="background-image: url(https://images.pexels.com/photos/414171/pexels-photo-414171.jpeg?w=1260&h=750&dpr=2&auto=compress&cs=tinysrgb)">
-                    <h1 class="text-shadow">考试简介</h1>
+                    </div>
+                    <div class="back">
+                        <h2>Angular</h2>
+                        <p>Good tools make application development quicker and easier to maintain than if you did everything
+                            by
+                            hand..</p>
+                    </div>
+                </div>
+            </div>
 
+            <div class="box-card">
+                <div class="flip" @click="goSign">
+                    <div class="front">
+                        <h1 class="text-shadow">报名缴费</h1>
+                    </div>
+                    <div class="back">
+                        <h2>Mountain</h2>
+                        <p>Good tools make application development quicker and easier to maintain than if you did everything
+                            by
+                            hand..</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="down-box">
+            <div class="box-card">
+            <div class="flip" @click="goExam">
+                <div class="front">
+                    <h1 class="text-shadow">考试入口</h1>
                 </div>
                 <div class="back">
                     <h2>Angular</h2>
@@ -16,123 +45,74 @@ background: url(@assets/img/bg.pngsrc\assets\images\6663.jpg)
                         hand..</p>
                 </div>
             </div>
-        </el-card>
+        </div>
 
-        <el-card id="right-up" class="box-card">
+        <div class="box-card">
             <div class="flip">
-            <div class="front"
-                style="background-image: url(https://images.pexels.com/photos/540518/pexels-photo-540518.jpeg?w=1260&h=750&dpr=2&auto=compress&cs=tinysrgb)">
-                <h1 class="text-shadow">报名缴费</h1>
-            </div>
-            <div class="back">
-                <h2>Mountain</h2>
-                <p>Good tools make application development quicker and easier to maintain than if you did everything by
-                    hand..</p>
+                <div class="front">
+                    <h1 class="text-shadow">成绩查询</h1>
+                </div>
+                <div class="back">
+                    <h2>Angular</h2>
+                    <p>Good tools make application development quicker and easier to maintain than if you did everything by
+                        hand..</p>
+                </div>
             </div>
         </div>
-        </el-card>
+        </div>   
 
-        <el-card id="left-down" class="box-card">
-            <div class="flip" @click="goExam">
-            <div class="front"
-                style="background-image: url(https://images.pexels.com/photos/36717/amazing-animal-beautiful-beautifull.jpg?w=1260&h=750&dpr=2&auto=compress&cs=tinysrgb)">
-                <h1 class="text-shadow">考试入口</h1>
-            </div>
-            <div class="back">
-                <h2>Angular</h2>
-                <p>Good tools make application development quicker and easier to maintain than if you did everything by
-                    hand..</p>
-            </div>
-        </div>
-        </el-card>
 
-        <el-card id="right-down" class="box-card">
-            <div class="flip">
-            <div class="front"
-                style="background-image: url(https://images.pexels.com/photos/38136/pexels-photo-38136.jpeg?w=1260&h=750&dpr=2&auto=compress&cs=tinysrgb)">
-                <h1 class="text-shadow">成绩查询</h1>
-            </div>
-            <div class="back">
-                <h2>Angular</h2>
-                <p>Good tools make application development quicker and easier to maintain than if you did everything by
-                    hand..</p>
-            </div>
-        </div>
-        </el-card>
 
     </div>
 </template>
 
 <script>
-import BreadcrumbNav from "../common/BreadcrumbNav";
-
-// 导入子组件
-import OrderTable from "./orderChildComponents/OrderTable";
-import OrderEdit from "./orderChildComponents/OrderEdit";
-import OrderProgress from "./orderChildComponents/OrderProgress";
-
-import { getOrderListRequest } from 'network/order';
-
-
+let uid = localStorage.getItem("uid");
+let uname = localStorage.getItem("name");
 export default {
+    data() {
+        return {
+            id: uid,
+            name: uname,
+        }
+    },
     methods: {
         goExam() {
             this.$router.push('/Exam');
+        },
+        goSign() {
+            this.$router.push('/Sign');
         }
     }
 }
 </script>
 
-<style>
+
+<style scoped>
 body {
-    background: #222;
+    background: #FFFF;
 }
 
-
-#left-up {
-    position: absolute;
-    margin-left: 300px;
-    left: 50px;
-    margin-top: 100px;
-
+.up-box {
+    display: flex;
+    margin-left: 50%;
+    transform: translateX(-50%);
 }
 
-#right-up {
-    margin-left: 850px;
-    height: 100%;
-    margin-top: 122px;
+.down-box {
+    display: flex;
+    margin-left: 50%;
+    transform: translateX(-50%);
 }
 
-#left-down {
-    position: absolute;
-    margin-left: 300px;
-    left: 50px;
-    margin-top: 40px;
-}
-
-#right-down {
-    margin-left: 850px;
-    height: 100%;
-    margin-top: 40px;
-}
-
-.shadowbox-4 {
-    width: 15em;
-    border: 3px solid #333;
-    border-radius: 20px;
-    /*弧度*/
-    border-color: #99a9bf;
-    /*边框颜色*/
-    padding: 8px 12px;
-    position: relative;
-    left: 700px;
-    top: -92px;
-    width: 400px;
-    height: 150px
+.el-card {
+    box-shadow: none;
+    border-color: white;
 }
 
 .el-card__body {
-    background: #222;
+    background: white;
+    border-color: white;
     padding: 0;
 }
 
@@ -155,6 +135,7 @@ body {
 }
 
 .box-card {
+    margin:1%;
     width: 480px;
 }
 </style>
@@ -175,6 +156,8 @@ h1 {
 // base
 .flip {
     position: relative;
+    border-color: white;
+
     >.front,
     >.back {
         display: block;
@@ -243,7 +226,7 @@ h1 {
         height: 220px;
         padding: 1em 2em;
         background: #313131;
-        border-radius: 10px;
+        border-radius: 30px;
 
         p {
             font-size: 0.9125rem;
@@ -255,4 +238,5 @@ h1 {
 
 .text-shadow {
     text-shadow: 1px 1px rgba(0, 0, 0, 0.04), 2px 2px rgba(0, 0, 0, 0.04), 3px 3px rgba(0, 0, 0, 0.04), 4px 4px rgba(0, 0, 0, 0.04), 0.125rem 0.125rem rgba(0, 0, 0, 0.04), 6px 6px rgba(0, 0, 0, 0.04), 7px 7px rgba(0, 0, 0, 0.04), 8px 8px rgba(0, 0, 0, 0.04), 9px 9px rgba(0, 0, 0, 0.04), 0.3125rem 0.3125rem rgba(0, 0, 0, 0.04), 11px 11px rgba(0, 0, 0, 0.04), 12px 12px rgba(0, 0, 0, 0.04), 13px 13px rgba(0, 0, 0, 0.04), 14px 14px rgba(0, 0, 0, 0.04), 0.625rem 0.625rem rgba(0, 0, 0, 0.04), 16px 16px rgba(0, 0, 0, 0.04), 17px 17px rgba(0, 0, 0, 0.04), 18px 18px rgba(0, 0, 0, 0.04), 19px 19px rgba(0, 0, 0, 0.04), 1.25rem 1.25rem rgba(0, 0, 0, 0.04);
-}</style>
+}
+</style>

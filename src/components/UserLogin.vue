@@ -145,7 +145,8 @@ export default {
           });
           sessionStorage.setItem('token', result.data.token);
           localStorage.setItem("uid", result.data.id);
-          localStorage.setItem("name", this.loginForm.username);
+          localStorage.setItem("name", result.data.username);
+          localStorage.setItem("email", result.data.email);
           this.$router.push('/front');
         }).catch(err => {
           console.log('登录失败：', err);

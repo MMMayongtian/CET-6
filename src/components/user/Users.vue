@@ -46,7 +46,7 @@
         queryInfo: {
           query: '',
           pagenum: 1, // 当前页
-          pagesize: 2 // 每页显示多少条数据
+          pagesize: 10 // 每页显示多少条数据
         },
         userList: [],
         total: 0

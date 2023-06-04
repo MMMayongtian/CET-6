@@ -117,12 +117,15 @@
   }
 
   .header-logo {
+
     display: flex;
     align-items: center;
   }
 
   .header-logo img {
-    height: 50px;
+    margin-left: -186px;
+    margin-top: 15px;
+    height: 85px;
   }
 
   /* 左侧菜单 */

@@ -42,3 +42,9 @@ new Vue({
         return h(App)
     }
 }).$mount('#app')
+
+import {
+    Radio
+} from 'element-ui';
+
+Vue.use(Radio)

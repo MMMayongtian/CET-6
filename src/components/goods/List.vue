@@ -2,8 +2,8 @@
   <div>
     <!-- 顶部面包屑导航 -->
     <breadcrumb-nav>
-      <template v-slot:firstMenu>商品管理</template>
-      <template v-slot:secondMenu>商品列表</template>
+      <template v-slot:firstMenu>试题管理</template>
+      <template v-slot:secondMenu>试题列表</template>
     </breadcrumb-nav>
 
     <!-- 卡片视图 -->
@@ -15,16 +15,16 @@
           </el-input>
         </el-col>
         <el-col :span="4">
-          <el-button type="primary" @click="goAddPage">添加商品</el-button>
+          <el-button type="primary" @click="goAddPage">添加试卷</el-button>
         </el-col>
       </el-row>
 
       <!-- table表格区域 -->
       <el-table :data="goodsList" border stripe>
         <el-table-column type="index"></el-table-column>
-        <el-table-column label="商品名称" prop="goods_name"></el-table-column>
-        <el-table-column label="商品价格（元）" prop="goods_price" width="90px"></el-table-column>
-        <el-table-column label="商品重量" prop="goods_weight" width="90px"></el-table-column>
+        <el-table-column label="试题名称" prop="goods_name"></el-table-column>
+        <el-table-column label="试卷总分" prop="goods_price" width="200px"></el-table-column>
+        <el-table-column label="考试时长(min)" prop="goods_weight" width="200px"></el-table-column>
         <el-table-column label="创建时间" prop="add_time" width="170px">
           <template slot-scope="scope">
             {{scope.row.add_time | dateFormat}}
