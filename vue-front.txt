@@ -1,0 +1,102 @@
+background: url(@assets/img/bg.pngsrc\assets\images\6663.jpg) 
+<template>
+<div>
+        <h1 style="text-align: center;margin-top: 100px">CET-6 考试系统</h1>
+
+  <el-card id="left-up" class="box-card">
+  <div slot="header" class="clearfix">
+    <span>考试简介</span>
+    <el-button style="float: right; padding: 3px 0" type="text">操作按钮</el-button>
+  </div>
+  <div v-for="o in 4" :key="o" class="text item">
+    {{'列表内容 ' + o }}
+    
+    
+  </div>
+  </el-card>
+
+  <el-card id="right-up" class="box-card">
+  <div  slot="header" class="clearfix">
+    <span>报名缴费</span>
+    <el-button style="float: right; padding: 3px 0" type="text">操作按钮</el-button>
+  </div>
+  <div v-for="o in 4" :key="o" class="text item">
+    {{'列表内容 ' + o }}
+    报名缴费
+    考试入口
+  </div>
+  </el-card>
+
+  <el-card id="left-down" class="box-card">
+  <div slot="header" class="clearfix">
+    <span>考试入口</span>
+    <el-button style="float: right; padding: 3px 0" type="text">操作按钮</el-button>
+  </div>
+  <div v-for="o in 4" :key="o" class="text item">
+    {{'列表内容 ' + o }}
+    报名缴费
+    考试入口
+  </div>
+  </el-card>
+
+  <el-card id="right-down" class="box-card">
+  <div slot="header" class="clearfix">
+    <span>成绩查询</span>
+    <el-button style="float: right; padding: 3px 0" type="text">操作按钮</el-button>
+  </div>
+  <div v-for="o in 4" :key="o" class="text item">
+    {{'列表内容 ' + o }}
+    报名缴费
+    考试入口
+  </div>
+  </el-card>
+
+
+
+
+<!-- <div class="shadowbox-4">
+  <p>成绩查询</p>
+</div> -->
+
+
+    </div>
+</template>
+
+<style>
+#left-up{position:absolute;margin-left:300px;left:50px; margin-top: 100px;background-color:#b7cae5} 
+#right-up{ margin-left:850px; height:100%; margin-top: 122px;background-color:#b7cae5}
+#left-down{position:absolute;margin-left:300px;left:50px;margin-top: 40px; background-color:#b7cae5} 
+#right-down{ margin-left:850px; height:100%; margin-top: 40px;background-color:#b7cae5}
+
+
+  .shadowbox-4 {
+  width: 15em;
+  border: 3px solid #333;
+  border-radius: 20px;/*弧度*/ 
+  border-color: #99a9bf;/*边框颜色*/
+  padding: 8px 12px;
+  position:relative;left:700px;top:-92px;width:400px;height:150px}
+
+  .text {
+    font-size: 14px;
+  }
+
+  .item {
+    margin-bottom: 18px;
+  }
+
+  .clearfix:before,
+  .clearfix:after {
+    display: table;
+    content: "";
+  }
+  .clearfix:after {
+    clear: both
+  }
+
+  .box-card {
+    width: 480px;
+  }
+  
+  
+</style>
